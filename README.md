@@ -9,6 +9,12 @@
 
 This repository contains a suite of Odoo 17 modules for integrating QRIS (Quick Response Code Indonesian Standard) payments into the Odoo ecosystem. It supports both Point of Sale (POS) and manual payment workflows with dynamic QR code generation.
 
+### Key Functions
+- **Unified QRIS Payments:** Accept QRIS payments across Odoo Point of Sale (POS), Invoices, and eCommerce.
+- **Dynamic QR Generation:** Automatically generates QR codes with the exact transaction amount embedded.
+- **Manual Verification Helper:** Uses a unique code system (random last digits) to facilitate easy manual reconciliation for bank transfers.
+- **Proof of Payment:** Integrated workflow for verifying customer payment execution.
+
 ### Modules Overview
 
 #### 1. Runia QRIS Generator (`runia_qris_generator`)
@@ -68,6 +74,12 @@ LGPL-3
 ## 🇮🇩 Bahasa Indonesia
 
 Repositori ini berisi kumpulan modul Odoo 17 untuk mengintegrasikan pembayaran QRIS (Quick Response Code Indonesian Standard) ke dalam ekosistem Odoo. Mendukung alur kerja kasir (POS) maupun pembayaran manual dengan pembuatan kode QR dinamis.
+
+### Fungsi Utama
+- **Pembayaran QRIS Terpadu:** Menerima pembayaran QRIS di Odoo Point of Sale (POS), Invoice, dan eCommerce.
+- **Pembuatan QR Dinamis:** Secara otomatis membuat kode QR dengan nominal transaksi yang tepat.
+- **Bantuan Verifikasi Manual:** Menggunakan sistem kode unik (digit terakhir acak) untuk memudahkan rekonsiliasi manual transfer bank.
+- **Bukti Pembayaran:** Alur kerja terintegrasi untuk memverifikasi eksekusi pembayaran pelanggan.
 
 ### Ringkasan Modul
 
