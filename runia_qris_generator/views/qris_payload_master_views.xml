@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_qris_payload_master_tree" model="ir.ui.view">
+        <field name="name">qris.payload.master.tree</field>
+        <field name="model">qris.payload.master</field>
+        <field name="arch" type="xml">
+            <tree string="QRIS Master">
+                <field name="name"/>
+                <field name="merchant_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_qris_payload_master_form" model="ir.ui.view">
+        <field name="name">qris.payload.master.form</field>
+        <field name="model">qris.payload.master</field>
+        <field name="arch" type="xml">
+            <form string="QRIS Master">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Toko Berkah - Static"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="merchant_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Payload Configuration">
+                            <group>
+                                <field name="static_payload" widget="text" placeholder="Paste your static QRIS payload here..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_qris_payload_master" model="ir.actions.act_window">
+        <field name="name">QRIS Master</field>
+        <field name="res_model">qris.payload.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

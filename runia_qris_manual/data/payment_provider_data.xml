@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="payment_provider_qris_manual" model="payment.provider">
+            <field name="name">QRIS Manual</field>
+            <field name="code">qris_manual</field>
+            <field name="state">test</field>
+            <field name="image_128" type="base64" file="runia_qris_manual/static/description/icon.png"/>
+            <field name="redirect_form_view_id" ref="qris_manual_redirect_form"/>
+            <field name="allow_tokenization">False</field>
+            <field name="allow_express_checkout">False</field>
+            <field name="pre_msg">Scan the QR code and upload proof of payment.</field>
+            <field name="is_published">True</field>
+        </record>
+    </data>
+</odoo>

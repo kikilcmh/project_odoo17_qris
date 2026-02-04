@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payment_provider_form_qris_manual" model="ir.ui.view">
+        <field name="name">payment.provider.form.qris.manual</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <group name="provider_credentials" position="inside">
+                <group invisible="code != 'qris_manual'">
+                    <field name="qris_master_id" required="code == 'qris_manual'"/>
+                    <field name="payment_logo_type" widget="radio"/>
+                    <field name="bank_name" invisible="payment_logo_type != 'bank'" required="payment_logo_type == 'bank'"/>
+                    <field name="ewallet_name" invisible="payment_logo_type != 'ewallet'" required="payment_logo_type == 'ewallet'"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

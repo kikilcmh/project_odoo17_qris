@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_qris_payload_log_form_manual_v2" model="ir.ui.view">
+        <field name="name">qris.payload.log.form.manual.v2</field>
+        <field name="model">qris.payload.log</field>
+        <field name="inherit_id" ref="runia_qris_generator.view_qris_payload_log_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Header -->
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_verify_paid" string="Verify &amp; Mark Paid" type="object" class="oe_highlight" 
+                            invisible="state != 'waiting_verification'"/>
+                    <button name="action_reject_proof" string="Reject Proof" type="object" class="btn-danger" 
+                            invisible="state != 'waiting_verification'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting_proof,waiting_verification,paid"/>
+                </header>
+            </xpath>
+
+            <!-- Add Unique Code and Total Amount -->
+            <field name="amount" position="after">
+                <field name="unique_code"/>
+                <field name="amount_total" decoration-bf="1"/>
+            </field>
+
+            <!-- Add Proof Image and Filename -->
+            <!-- We target the group containing dynamic_payload -->
+            <xpath expr="//field[@name='dynamic_payload']/.." position="before">
+                 <group string="Payment Proof" invisible="not proof_image">
+                     <field name="proof_image" widget="image" class="oe_avatar" options="{'size': [300, 300]}"/>
+                     <field name="proof_filename" invisible="1"/>
+                 </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Update Tree View -->
+    <record id="view_qris_payload_log_tree_manual_v2" model="ir.ui.view">
+        <field name="name">qris.payload.log.tree.manual.v2</field>
+        <field name="model">qris.payload.log</field>
+        <field name="inherit_id" ref="runia_qris_generator.view_qris_payload_log_tree"/>
+        <field name="arch" type="xml">
+             <field name="amount" position="after">
+                 <field name="unique_code" optional="show"/>
+                 <field name="amount_total" optional="show"/>
+                 <field name="state" widget="badge" 
+                        decoration-info="state == 'waiting_proof'"
+                        decoration-warning="state == 'waiting_verification'"
+                        decoration-success="state == 'paid'"
+                        decoration-danger="state == 'rejected' or state == 'expired'"/>
+             </field>
+        </field>
+    </record>
+    
+    <!-- Action for the Payment View (Manual Verification Queue) -->
+    <record id="action_qris_verification_queue" model="ir.actions.act_window">
+        <field name="name">QRIS Verification Queue</field>
+        <field name="res_model">qris.payload.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'waiting_verification')]</field>
+        <field name="context">{'search_default_state': 'waiting_verification'}</field>
+    </record>
+
+    <menuitem id="menu_qris_verification"
+              name="Verification Queue"
+              parent="runia_qris_generator.menu_qris_root"
+              action="action_qris_verification_queue"
+              sequence="20"/>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_qris_payload_log_tree" model="ir.ui.view">
+        <field name="name">qris.payload.log.tree</field>
+        <field name="model">qris.payload.log</field>
+        <field name="arch" type="xml">
+            <tree string="QRIS Logs" create="false" edit="false">
+                <field name="created_on"/>
+                <field name="master_id"/>
+                <field name="amount"/>
+                <field name="source"/>
+                <field name="reference"/>
+                <field name="created_by"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_qris_payload_log_form" model="ir.ui.view">
+        <field name="name">qris.payload.log.form</field>
+        <field name="model">qris.payload.log</field>
+        <field name="arch" type="xml">
+            <form string="QRIS Log" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="master_id"/>
+                            <field name="amount"/>
+                            <field name="source"/>
+                            <field name="reference"/>
+                        </group>
+                        <group>
+                            <field name="created_by"/>
+                            <field name="created_on"/>
+                        </group>
+                    </group>
+                    <group string="Generated Payload">
+                        <field name="dynamic_payload" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_qris_payload_log" model="ir.actions.act_window">
+        <field name="name">Generation Logs</field>
+        <field name="res_model">qris.payload.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

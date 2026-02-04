@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="qris_manual_redirect_form">
+        <form t-att-action="api_url" method="get">
+            <input type="hidden" name="reference" t-att-value="reference"/>
+        </form>
+    </template>
+
+    <template id="qris_payment_page" name="QRIS Payment">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 col-md-9">
+                        <div class="card shadow-lg border-0" style="overflow: hidden;">
+                            <!-- QRIS Header with Red Background -->
+                            <div class="card-header text-white text-center py-4 position-relative" style="background: linear-gradient(135deg, #ED1C24 0%, #C41E3A 100%);">
+                                <div class="text-center mb-3">
+                                    <img src="/runia_qris_manual/static/src/img/logo_qris.png" alt="QRIS" style="height: 45px;"/>
+                                </div>
+                                <h3 class="mb-0 fw-bold">QR Code Standar Pembayaran Nasional</h3>
+                            </div>
+                            
+                            
+                            <div class="card-body p-4" style="background: #f8f9fa;">
+                                <!-- Reference Number -->
+                                <div class="text-center mb-3">
+                                    <small class="text-muted">Nomor Referensi</small>
+                                    <h6 class="fw-bold text-dark mb-0"><span t-esc="tx.reference"/></h6>
+                                </div>
+                                
+                                <!-- QR Code with Red Border (Official Style) -->
+                                <div class="text-center my-4">
+                                     <div class="d-inline-block p-4 bg-white position-relative" style="border: 8px solid #ED1C24; border-radius: 8px;">
+                                         <!-- Red corner decorations (like official QRIS design) -->
+                                         <div style="position: absolute; top: -4px; left: -4px; width: 40px; height: 40px; border-left: 8px solid #ED1C24; border-top: 8px solid #ED1C24;"/>
+                                         <div style="position: absolute; top: -4px; right: -4px; width: 40px; height: 40px; border-right: 8px solid #ED1C24; border-top: 8px solid #ED1C24;"/>
+                                         <div style="position: absolute; bottom: -4px; left: -4px; width: 40px; height: 40px; border-left: 8px solid #ED1C24; border-bottom: 8px solid #ED1C24;"/>
+                                         <div style="position: absolute; bottom: -4px; right: -4px; width: 40px; height: 40px; border-right: 8px solid #ED1C24; border-bottom: 8px solid #ED1C24;"/>
+                                         
+                                         <img t-attf-src="/report/barcode/QR/{{ qris_payload }}?width=280&amp;height=280" 
+                                              alt="QR Code" class="img-fluid" style="max-width: 280px; display: block;"/>
+                                     </div>
+                                </div>
+                                
+                                <!-- Bank/E-Wallet Logo Section - Below QR Code -->
+                                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start mb-3 px-3 gap-3">
+                                    <!-- Left: Bank/E-Wallet Logo -->
+                                    <div class="text-start w-100 w-sm-auto">
+                                        <div class="d-inline-block bg-white px-4 py-3 rounded shadow-sm">
+                                            <t t-if="payment_logo_path">
+                                                <img t-att-src="payment_logo_path" t-att-alt="payment_logo_name" style="height: 40px; max-width: 150px;"/>
+                                            </t>
+                                            <t t-else="">
+                                                <!-- Placeholder when no logo selected -->
+                                                <div class="text-muted d-flex align-items-center" style="min-width: 150px;">
+                                                    <i class="fa fa-university me-3" style="font-size: 2rem;"/>
+                                                    <span style="font-size: 1.1rem; font-weight: 500;">Bank/E-Wallet</span>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Right: GPN Logo -->
+                                    <div class="text-end">
+                                        <div class="d-inline-block bg-white px-3 py-2 rounded shadow-sm">
+                                            <img src="/runia_qris_manual/static/src/img/logo_gpn.svg" alt="GPN" style="height: 28px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Amount Display -->
+                                <div class="text-center mb-4 p-3 bg-white rounded shadow-sm">
+                                    <p class="text-muted mb-2 small">Total Pembayaran</p>
+                                    <h1 class="fw-bold mb-0" style="font-size: 2.5rem; color: #ED1C24;">
+                                        <span t-esc="amount_display" t-options="{'widget': 'monetary', 'display_currency': tx.currency_id, 'precision': 0}"/>
+                                    </h1>
+                                </div>
+                                
+                                <hr class="my-4"/>
+
+                                <!-- Upload Section -->
+                                <div class="bg-white p-4 rounded shadow-sm">
+                                    <h5 class="text-center mb-4 fw-bold" style="color: #ED1C24;">
+                                        <i class="fa fa-upload me-2"/>Upload Bukti Pembayaran
+                                    </h5>
+                                    <form t-att-action="upload_url" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="reference" t-att-value="tx.reference"/>
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold small">Pilih File Gambar</label>
+                                            <input type="file" name="proof_file" class="form-control form-control-lg" required="required" accept="image/*"/>
+                                            <div class="form-text">Format: JPG, PNG, JPEG (Maks. 5MB)</div>
+                                        </div>
+                                        <button type="submit" class="btn btn-lg w-100 py-3 fw-bold text-white" style="background: linear-gradient(135deg, #ED1C24 0%, #C41E3A 100%); border: none;">
+                                            <i class="fa fa-check-circle me-2"/>Kirim Bukti Pembayaran
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="qris_success_page" name="Payment Submitted">
+        <t t-call="website.layout">
+            <div class="container py-5 text-center">
+                <div class="card shadow-sm p-5">
+                    <h1 class="text-success mb-3"><i class="fa fa-check-circle"/> Payment Submitted</h1>
+                    <p class="lead">Thank you! We have received your payment proof.</p>
+                    <p>Your order will be processed once the payment is verified by our team.</p>
+                    <div class="mt-4">
+                        <a href="/shop" class="btn btn-primary">Return to Shop</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <template id="error_page" name="Payment Error">
+        <t t-call="website.layout">
+            <div class="container py-5 text-center">
+                <div class="card shadow-sm p-5 border-danger">
+                    <h1 class="text-danger mb-3"><i class="fa fa-exclamation-triangle"/> Error</h1>
+                    <p t-esc="error"/>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

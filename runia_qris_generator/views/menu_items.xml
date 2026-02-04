@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_qris_root"
+              name="QRIS Generator"
+              sequence="100"
+              web_icon="runia_qris_generator,static/description/icon.png"/>
+
+    <!-- QRIS Master -->
+    <menuitem id="menu_qris_master"
+              name="QRIS Master"
+              parent="menu_qris_root"
+              action="action_qris_payload_master"
+              sequence="10"/>
+
+    <!-- Generation Logs -->
+    <menuitem id="menu_qris_logs"
+              name="Generation Logs"
+              parent="menu_qris_root"
+              action="action_qris_payload_log"
+              sequence="20"/>
+
+    <!-- Tester Wizard -->
+    <menuitem id="menu_qris_tester"
+              name="Tester Wizard"
+              parent="menu_qris_root"
+              action="action_qris_tester_wizard"
+              sequence="30"/>
+</odoo>
