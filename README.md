@@ -11,7 +11,7 @@ This repository contains a suite of Odoo 17 modules for integrating QRIS (Quick 
 
 ### Key Functions
 - **Unified QRIS Payments:** Accept QRIS payments across Odoo Point of Sale (POS), Invoices, and eCommerce.
-- **Dynamic QR Generation:** Automatically generates QR codes with the exact transaction amount embedded.
+- **Static to Dynamic Conversion:** Converts your master Static QRIS code into unique Dynamic QRIS codes for every transaction.
 - **Manual Verification Helper:** Uses a unique code system (random last digits) to facilitate easy manual reconciliation for bank transfers.
 - **Proof of Payment:** Integrated workflow for verifying customer payment execution.
 
@@ -77,7 +77,7 @@ Repositori ini berisi kumpulan modul Odoo 17 untuk mengintegrasikan pembayaran Q
 
 ### Fungsi Utama
 - **Pembayaran QRIS Terpadu:** Menerima pembayaran QRIS di Odoo Point of Sale (POS), Invoice, dan eCommerce.
-- **Pembuatan QR Dinamis:** Secara otomatis membuat kode QR dengan nominal transaksi yang tepat.
+- **Konversi Statis ke Dinamis:** Mengubah master QRIS Statis Anda menjadi QRIS Dinamis unik untuk setiap transaksi.
 - **Bantuan Verifikasi Manual:** Menggunakan sistem kode unik (digit terakhir acak) untuk memudahkan rekonsiliasi manual transfer bank.
 - **Bukti Pembayaran:** Alur kerja terintegrasi untuk memverifikasi eksekusi pembayaran pelanggan.
 
